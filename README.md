@@ -1,3 +1,23 @@
+# WSL 환경 구성
+```bash
+# Linux update
+sudo apt-get update -y
+sudo apt-get upgrade -y
+
+# g++, gdb 설치
+sudo apt-get install build-esential gdb -y
+
+# c++20을 사용하기 위해서 g++-13 이상을 사용해야 함
+# - 위 명령어에서 설치가 안됐으면 Toolchain PPA를 추가한 후에 설치해야 함
+# - `sudo add-apt-repository ppa:ubuntu-toolchain-r/test` 실행 안될 경우
+#     - error message: sudo: add-apt-repository: command not found
+#     - apt 서버를 추가할 수 없다는 것, `add-apt-repository` 명령어는 `software-properties-common` 패키지의 일부이기 때문에 해당 패키지를 설치해야 함
+#     - `sudo apt-get install software-properties-common -y` 명령어 실행한 후에 다시 시도
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update -y
+sudo apt-get install g++-13 -y
+```
+
 # c_cpp_properties.json
 - C/C++ Extention의 설정 파일
 - vscode에서 어떤 컴파일러를 사용할 것인지 설정
@@ -27,7 +47,7 @@
             "dotConfig "                        : "",   // Kconfig 시스템이 만든 .config 파일에 대한 경로
             "mergeConfigurations"               : true, // 구성 공급자의 포함 경로, 정의 및 강제 포함과 포함 경로를 병합하도록 설정
             "customConfigurationVariables"      : {},   // launch.json 또는 tasks.json의 입력 변수에 사용할 `${cpptools:activeConfigCustomVariable}` 명령을 통해 쿼리할 수 있는 사용자 지정 변수
-            "browse"                            :       // `"C_Cpp.intelliSenseEngine"`이 `"Tag Parser"`(`"fuzzy"` IntelliSense 또는 `"browse"` 엔진이라고도 함)로 설정될 때 사용되는 속성 집합
+            "browse":                                   // `"C_Cpp.intelliSenseEngine"`이 `"Tag Parser"`(`"fuzzy"` IntelliSense 또는 `"browse"` 엔진이라고도 함)로 설정될 때 사용되는 속성 집합
             {
                 "path"                          : [],   // 소스 파일에 포함된 헤더를 검색하기 위한 태그 파서의 경로 목록
                 "limitSymbolsToIncludeHeaders"  : true, // true인 경우 태그 파서는 소스 파일에 의해 직접 또는 간접적으로 포함된 코드 파일만 파싱
